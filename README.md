@@ -27,3 +27,23 @@ docker compose up --build
 ```
 
 The container serves the frontend on `http://localhost:3000`.
+
+## API Gateway (.NET)
+
+```bash
+cd backend/ApiGateway
+dotnet restore
+dotnet run
+```
+
+The API listens on `http://localhost:8080` (or `http://localhost:5000` when run via Docker Compose).
+
+## ETL (SerpApi + Airflow)
+
+```bash
+cd etl
+python serpapi_ingest.py
+```
+
+Airflow DAGs live in `etl/airflow/dags`. Configure SerpApi and Postgres env vars in `.env.local`
+or your deployment environment before running the ETL.

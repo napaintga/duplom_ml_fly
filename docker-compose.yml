@@ -6,3 +6,27 @@ services:
       context: ./frontend
     ports:
       - "3000:80"
+    depends_on:
+      - api
+  api:
+    build:
+      context: ./backend/ApiGateway
+    environment:
+      - POSTGRES_CONNECTION=Host=postgres;Port=5432;Database=flights;Username=flights;Password=flights
+    ports:
+      - "5000:8080"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: flights
+      POSTGRES_USER: flights
+      POSTGRES_PASSWORD: flights
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
